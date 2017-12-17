@@ -71,7 +71,7 @@ A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps
 
         var _this = this;
         // creat a fresh object with properties from the original object
-        var newChartOption = Object.assign({this.chartOption);
+        var newChartOption = Object.assign({}, _this.chartOption);
 
         // modify properties of the new object
         newChartOption.xAxis[0].data.push(Math.round(_this.chartOption.xAxis[0].data[_this.chartOption.xAxis[0].data.length - 1] + 1));
