@@ -70,13 +70,16 @@ A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps
 6. For realtime charts, since Vue cannot detect property addition or deletion, we cannot just modify the `chartOption` object. However we can do something like this:
 
         var _this = this;
+        // creat a fresh object with properties from the original object
         var newChartOption = Object.assign({this.chartOption);
 
+        // modify properties of the new object
         newChartOption.xAxis[0].data.push(Math.round(_this.chartOption.xAxis[0].data[_this.chartOption.xAxis[0].data.length - 1] + 1));
         newChartOption.xAxis[0].data.shift();
         newChartOption.series[0].data.push(Math.round(Math.random() * 100));
         newChartOption.series[0].data.shift();
         
+        // assign the new object to the old object, Vue will detect the change
         _this.chartOption = newChartOption;
 
 ## License

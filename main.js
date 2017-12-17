@@ -47,13 +47,16 @@ const App = new Vue({
     methods: {
         addLineChartData: function () {
             var _this = this;
+            // creat a fresh object with properties from the original object
             var newLineChartOption = Object.assign({}, _this.lineChartOption);
 
+            // modify properties of the new object
             newLineChartOption.xAxis[0].data.push(Math.round(_this.lineChartOption.xAxis[0].data[_this.lineChartOption.xAxis[0].data.length - 1] + 1));
             newLineChartOption.xAxis[0].data.shift();
             newLineChartOption.series[0].data.push(Math.round(Math.random() * 100));
             newLineChartOption.series[0].data.shift();
             
+            // assign the new object to the old object, Vue will detect the change
             _this.lineChartOption = newLineChartOption;
         }
     },
