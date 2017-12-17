@@ -1,4 +1,10 @@
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
+/*
+run `rm -rf node_modules/webpack/node_modules/uglifyjs-webpack-plugin` after `npm install`
+see https://stackoverflow.com/questions/42375468/uglify-syntaxerror-unexpected-token-punc
+*/
 
 module.exports = {
     entry: [
@@ -37,6 +43,9 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new UglifyJSPlugin()
+    ],
     resolve: {
         alias: {
             vue: 'vue/dist/vue.js'
