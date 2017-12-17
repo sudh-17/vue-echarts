@@ -4,7 +4,8 @@ A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps
 
 ![banner](https://raw.githubusercontent.com/panteng/vue-echarts/master/banner.jpg)
 
-[Demo](http://panteng.github.io/vue-echarts)
+## Demo
+[Click Here](http://panteng.github.io/vue-echarts)
 
 ## Usage
 
