@@ -1,32 +1,46 @@
+const path = require('path');
+
 module.exports = {
     entry: [
-        './src/main.js'
+        './main.js'
     ],
     output: {
-        path: './bundles',
+        path: path.resolve(__dirname, 'bundles'),
         publicPath: '/bundles/',
         filename: 'bundle.js'
     },
     module: {
-        preLoaders: [
+        rules: [
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: "html-loader"
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    "css-loader"
+                ]
+            },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'jshint-loader'
-            }
-        ],
-        loaders: [
-            {
-                test: /\.html$/, loader: "html"
-            },
-            {
-                test: /\.css$/, loader: "style!css"
+                use: [
+                    {
+                        loader: 'babel-loader',
+                    }
+                ]
             }
         ]
     },
-    jshint: {
-        emitErrors: false,
-        failOnHint: false
+    resolve: {
+        alias: {
+            vue: 'vue/dist/vue.js'
+        }
     },
     devServer: {
         contentBase: './'

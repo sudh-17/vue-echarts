@@ -4,55 +4,80 @@ A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps
 
 ![banner](https://raw.githubusercontent.com/panteng/vue-echarts/master/banner.jpg)
 
-[Demo](http://panteng.me/demos/vue-echarts)
+[Demo](http://panteng.github.io/vue-echarts)
 
 ## Usage
 
-1. Download this repo and copy file `./src/directives/echarts.js` into your project.
+1. Download this repo and copy file `./directives/echarts.js` into your project.
 
 2. Register Vue-Echarts as a directive in your `main.js`:
 
-        Vue.directive('echarts', require('./directives/echarts'));  //  your project structure may be different from mine, so feel free to change the path of `echart.js`.
+        // javascript
+        import Vue from 'vue';
+        import V_Echarts from './directives/echarts';
+
+        const App = new Vue({
+            ...
+            directives: {
+                'echarts': V_Echarts
+            }
+            ...
+        }
        
 3. Echarts need a dom element to draw charts. You can use a `<div>` for that. Make sure you give a proper width and height for this `<div>`.
     
-        // template.html
+        // template
         <div class="chart"></div>
         
-        // style.css
+        // css
         .chart {
             width: 100%;
             height: 400px;
         }
 
-4. Add `v-echarts` directive to this `div` and assign a value to it. This value contains all the options for this echarts instanse. You need to define it in the scope.
+4. Add `v-echarts` directive to this `div`. And assign the object of echart options to `v-echarts`. This object should be defined in javascript.
  
-        // template.html
-        <div class="chart" v-echarts="barChartOption"></div>
+        // template
+        <div class="chart" v-echarts="chartOption"></div>
         
-        // index.js
-        vm.barChartOption = {
-            tooltip: {},
-            xAxis: {
-                data: ['A', 'B', 'C', 'D', 'E']
+        // javascript
+        vm.chartOption = {
+            tooltip : {
+                trigger: 'axis'
             },
-            yAxis: {},
-            series: [
+            xAxis : [
                 {
-                    name: 'Num',
-                    type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'Num',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data: [52, 54, 60, 61, 65, 62, 80, 85, 90, 99, 40, 30, 20, 10, 0]
                 }
             ]
         };
-        
-5. If your charts get data from a server and you want loading effects before data returns, there's a property to do this.
+    
+6. For realtime charts, since Vue cannot detect property addition or deletion, we cannot just modify the `chartOption` object. However we can do something like this:
 
-        <div class="chart" v-echarts="barChartOption" :loading="barChartLoading"></div>
-    
-    set `barChartLoading` to false before you make a ajax call and set `barChartLoading` to true when the ajax call finished.
-    
-6. Every time you change the value of `barChartOption`, the chart will immediately reflect the change you've made. You can use this way to make real-time charts, combining with socket technologies.
+        var _this = this;
+        var newChartOption = Object.assign({this.chartOption);
+
+        newChartOption.xAxis[0].data.push(Math.round(_this.chartOption.xAxis[0].data[_this.chartOption.xAxis[0].data.length - 1] + 1));
+        newChartOption.xAxis[0].data.shift();
+        newChartOption.series[0].data.push(Math.round(Math.random() * 100));
+        newChartOption.series[0].data.shift();
+        
+        _this.chartOption = newChartOption;
 
 ## License
 

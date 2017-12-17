@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Bar Chart</h3>
+        </div>
+        <div class="panel-body">
+            <div class="chart" v-echarts="barChartOption"></div>
+        </div>
+    </div>
+    
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Line Chart (Real Time)</h3>
+        </div>
+        <div class="panel-body">
+            <div class="chart" v-echarts="lineChartOption"></div>
+        </div>
+    </div>
+</div>
 <script src="bundles/bundle.js"></script>
 </body>
 </html>
