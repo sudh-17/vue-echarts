@@ -1,6 +1,6 @@
 {
   "name": "vue-echarts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A custom directive for using Echarts in Vue.js(v2.x.x) apps.",
   "scripts": {
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot",
