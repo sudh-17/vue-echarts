@@ -40,7 +40,7 @@ A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.
 4. Add `v-echarts` directive to this `div`. And assign an object of Echarts options to `v-echarts`. This object should be defined in your main.js file.
 
         // this is your index.html file
-        <div class="chart" v-echarts="barChartOptions"></div>
+        <div id="this-is-bar-chart" class="chart" v-echarts="barChartOptions"></div>
 
         // this is your main.js file
         ...
