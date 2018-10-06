@@ -1,6 +1,6 @@
 # Vue-Echarts
 
-A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps.
+A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps.
 
 ![banner](https://raw.githubusercontent.com/panteng/vue-echarts/master/banner.jpg)
 
