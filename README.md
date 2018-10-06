@@ -13,7 +13,8 @@ A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps
 
 2. Register Vue-Echarts as a directive in your `main.js`:
 
-        // javascript
+        // this is your main.js file
+
         import Vue from 'vue';
         import V_Echarts from './directives/echarts';
 
@@ -24,64 +25,64 @@ A custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps
             }
             ...
         }
-       
+
 3. Echarts need a dom element to draw charts. You can use a `<div>` for that. Make sure you give a proper width and height for this `<div>`.
-    
-        // template
-        <div class="chart"></div>
-        
-        // css
+
+        // this is your index.html file
+        <div id="this-is-bar-chart" class="chart"></div>
+
+        // this is your style.css file
         .chart {
             width: 100%;
             height: 400px;
         }
 
-4. Add `v-echarts` directive to this `div`. And assign the object of echart options to `v-echarts`. This object should be defined in javascript.
- 
-        // template
-        <div class="chart" v-echarts="chartOption"></div>
-        
-        // javascript
-        vm.chartOption = {
-            tooltip : {
-                trigger: 'axis'
-            },
-            xAxis : [
-                {
-                    type : 'category',
-                    boundaryGap : false,
-                    data : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            series : [
-                {
-                    name:'Num',
-                    type:'line',
-                    areaStyle: {normal: {}},
-                    data: [52, 54, 60, 61, 65, 62, 80, 85, 90, 99, 40, 30, 20, 10, 0]
-                }
-            ]
-        };
-    
-6. For realtime charts, since Vue cannot detect property addition or deletion, we cannot just modify the `chartOption` object. However we can do something like this:
+4. Add `v-echarts` directive to this `div`. And assign an object of Echarts options to `v-echarts`. This object should be defined in your main.js file.
 
-        var _this = this;
-        // creat a fresh object with properties from the original object
-        var newChartOption = Object.assign({}, _this.chartOption);
+        // this is your index.html file
+        <div class="chart" v-echarts="barChartOptions"></div>
 
-        // modify properties of the new object
-        newChartOption.xAxis[0].data.push(Math.round(_this.chartOption.xAxis[0].data[_this.chartOption.xAxis[0].data.length - 1] + 1));
-        newChartOption.xAxis[0].data.shift();
-        newChartOption.series[0].data.push(Math.round(Math.random() * 100));
-        newChartOption.series[0].data.shift();
-        
-        // assign the new object to the old object, Vue will detect the change
-        _this.chartOption = newChartOption;
+        // this is your main.js file
+        ...
+        const App = new Vue({
+            ...
+            data: {
+                barChartOptions: {
+                    tooltip: {},
+                    xAxis: {
+                        data: ['A', 'B', 'C', 'D', 'E']
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: 'Num',
+                            type: 'bar',
+                            data: [5, 20, 36, 10, 10]
+                        }
+                    ]
+                }
+            }
+            ...
+        }
+
+    At this point, you should see a beautiful bar chart in your browser.
+
+5. For dynamic data updating, you need to reassign a new object of Echarts options to the variable `barChartOptions`, EVERY TIME when there's an update in data.
+Don't modify the old `barChartOptions` object, that won't trigger reactivity in Vue, thus Echarts won't update the chart. See the code in main.js file for more details.
+
+6. If you need to access an Echarts instance, you can do it by:
+
+        // this is your main.js file
+
+        ...
+        mounted: function () {
+            const barChartElement = document.querySelector('#this-is-bar-chart');
+            console.log(barChartElement.echartsInstance);
+            // you can access an Echarts instance at the `mounted` stage of the parent VM,
+            // by accessing the `echartsInstance` property of the element
+            // that v-echarts directive is bind with
+        }
+        ...
 
 ## License
 

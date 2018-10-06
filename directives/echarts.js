@@ -2,33 +2,31 @@ import Vue from 'vue';
 import echarts from 'echarts';
 
 export default {
-    bind: (el, binding) => {
-        Vue.nextTick(() => {
-            el.echartsInstance = echarts.init(el);
+    bind: (el) => {
+        el.resizeEventHandler = () => el.echartsInstance.resize();
 
-            el.resizeEventHandler = function () {
-                el.echartsInstance.resize();
-            };
-
-            if ( window.attachEvent ) {
-                window.attachEvent('onresize', el.resizeEventHandler);
-            } else {
-                window.addEventListener('resize', el.resizeEventHandler, false);
-            }
-        });
+        if ( window.attachEvent ) {
+            window.attachEvent('onresize', el.resizeEventHandler);
+        } else {
+            window.addEventListener('resize', el.resizeEventHandler, false);
+        }
     },
+
+    inserted: (el) => {
+        el.echartsInstance = echarts.init(el);
+    },
+
     update: (el, binding) => {
-        Vue.nextTick(() => {
-            el.echartsInstance.setOption(binding.value);
-        });
+        el.echartsInstance.setOption(binding.value);
     },
-    unbind: (el) => {
-        el.echartsInstance.dispose();
 
+    unbind: (el) => {
         if ( window.attachEvent ) {
             window.detachEvent('onresize', _this.resizeEventHandler);
         } else {
-            window.removeEventListener('resize', _this.resizeEventHandler, false);;
+            window.removeEventListener('resize', _this.resizeEventHandler, false);
         }
+
+        el.echartsInstance.dispose();
     }
 }

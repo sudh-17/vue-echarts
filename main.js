@@ -2,9 +2,11 @@ import Vue from 'vue';
 import V_Echarts from './directives/echarts';
 
 const App = new Vue({
+
     el: '#app',
+
     data: {
-        barChartOption: {
+        barChartOptions: {
             tooltip: {},
             xAxis: {
                 data: ['A', 'B', 'C', 'D', 'E']
@@ -18,7 +20,7 @@ const App = new Vue({
                 }
             ]
         },
-        lineChartOption: {
+        lineChartOptions: {
             tooltip : {
                 trigger: 'axis'
             },
@@ -44,31 +46,47 @@ const App = new Vue({
             ]
         }
     },
-    methods: {
-        addLineChartData: function () {
-            var _this = this;
-            // creat a fresh object with properties from the original object
-            var newLineChartOption = Object.assign({}, _this.lineChartOption);
 
-            // modify properties of the new object
-            newLineChartOption.xAxis[0].data.push(Math.round(_this.lineChartOption.xAxis[0].data[_this.lineChartOption.xAxis[0].data.length - 1] + 1));
-            newLineChartOption.xAxis[0].data.shift();
-            newLineChartOption.series[0].data.push(Math.round(Math.random() * 100));
-            newLineChartOption.series[0].data.shift();
-            
-            // assign the new object to the old object, Vue will detect the change
-            _this.lineChartOption = newLineChartOption;
-        }
-    },
     mounted: function () {
-        var _this = this;
+        const _this = this;
 
-        // simulate realtime data change
+        // simulate realtime data change in line chart
         setInterval(function () {
-            _this.addLineChartData();
+            _this.updateLineChartData();
         }, 1000);
+
+        // you can access an Echarts instance at the `mounted` stage of the parent VM,
+        // by accessing the `echartsInstance` property of the element
+        // that v-echarts directive is bind with
+        const barChartElement = document.querySelector('#this-is-bar-chart');
+        console.log(barChartElement.echartsInstance);
     },
+
     directives: {
         'echarts': V_Echarts
-    }
+    },
+
+    methods: {
+        updateLineChartData: function () {
+            const _this = this;
+            // creat a fresh object with properties from the original object
+            const newLineChartOptions = Object.assign({}, _this.lineChartOptions);
+
+            // modify properties of the new object
+            // update xAxis data
+            newLineChartOptions.xAxis[0].data.push(
+                _this.lineChartOptions.xAxis[0].data[_this.lineChartOptions.xAxis[0].data.length - 1] + 1
+            );
+            newLineChartOptions.xAxis[0].data.shift();
+
+            // update series data
+            newLineChartOptions.series[0].data.push(Math.round(Math.random() * 100));
+            newLineChartOptions.series[0].data.shift();
+
+            // assign the new object to variable `lineChartOptions`, Vue.js will detect the change
+            // and Echarts will update the chart properly
+            _this.lineChartOptions = newLineChartOptions;
+        }
+    },
+
 });
