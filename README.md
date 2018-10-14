@@ -9,11 +9,11 @@ A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.
 
 ## Usage
 
-1. Install with npm:
+1. Install via npm:
 
         npm install vue-echarts-directive --save
 
-2. Register Vue-Echarts as a directive in your `main.js`:
+2. Register Vue-Echarts as a directive in your Vue.js app:
 
         // this is your main.js file
 
@@ -70,7 +70,7 @@ A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.
     At this point, you should see a beautiful bar chart in your browser.
 
 5. For dynamic data updating, you need to reassign a new object of Echarts options to the variable `barChartOptions`, EVERY TIME when there's an update in data.
-Don't modify the old `barChartOptions` object, that won't trigger reactivity in Vue, thus Echarts won't update the chart. See the code in main.js file for more details.
+Don't modify the old `barChartOptions` object, that won't trigger reactivity in Vue, thus Echarts won't update the chart. See the code in main.js file of this repo for more details.
 
 6. If you need to access an Echarts instance, you can do it by:
 
