@@ -1,6 +1,6 @@
 # Vue-Echarts
 
-A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js apps.
+A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.com/) in Vue.js(v2.x.x) apps.
 
 ![banner](https://raw.githubusercontent.com/panteng/vue-echarts/master/banner.jpg)
 
@@ -9,14 +9,16 @@ A simple yet flexible custom directive for using [Echarts](http://echarts.baidu.
 
 ## Usage
 
-1. Download this repo and copy file `./directives/echarts.js` into your project.
+1. Install with npm:
+
+        npm install vue-echarts-directive --save
 
 2. Register Vue-Echarts as a directive in your `main.js`:
 
         // this is your main.js file
 
         import Vue from 'vue';
-        import V_Echarts from './directives/echarts';
+        import V_Echarts from 'vue-echarts-directive';
 
         const App = new Vue({
             ...
