@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import echarts from 'echarts';
 
 export default {
