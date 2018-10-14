@@ -1,8 +1,9 @@
 {
   "name": "vue-echarts-directive",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A simple yet flexible custom directive for using Echarts in Vue.js(v2.x.x) apps.",
   "author": "Chris Pan <chrispan.pt@gmail.com>",
+  "main": "./directives/echarts.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panteng/vue-echarts.git"
