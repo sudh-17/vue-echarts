@@ -13,6 +13,7 @@ export default {
 
     inserted: (el) => {
         el.echartsInstance = echarts.init(el);
+        el.echartsInstance.setOption(binding.value);
     },
 
     update: (el, binding) => {
