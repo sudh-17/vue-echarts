@@ -11,7 +11,7 @@ export default {
         }
     },
 
-    inserted: (el) => {
+    inserted: (el, binding) => {
         el.echartsInstance = echarts.init(el);
         el.echartsInstance.setOption(binding.value);
     },
