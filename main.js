@@ -72,7 +72,7 @@ const App = new Vue({
             // creat a fresh object with properties from the original object
             const newLineChartOptions = Object.assign({}, _this.lineChartOptions);
 
-            // modify properties of the new object
+            // modify properties of the new object 
             // update xAxis data
             newLineChartOptions.xAxis[0].data.push(
                 _this.lineChartOptions.xAxis[0].data[_this.lineChartOptions.xAxis[0].data.length - 1] + 1
@@ -81,6 +81,7 @@ const App = new Vue({
 
             // update series data
             newLineChartOptions.series[0].data.push(Math.round(Math.random() * 100));
+            // shift() 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。
             newLineChartOptions.series[0].data.shift();
 
             // assign the new object to variable `lineChartOptions`, Vue.js will detect the change
